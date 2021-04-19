@@ -1,12 +1,12 @@
 # ComparingPerformanceBar
-Simple Progress View that you can compare things, for instance statistics of Football teams in a match etc
+Simple Progress View that you can compare things, like statistics of a Football match
 
 # Usage
 <img src="https://github.com/cliffgr/ComparingPerformanceBar/blob/master/art/Image1.png"/>
 
 
 ```xml
- <com.cliff.comparingperformancebar.PercentageProgressBar
+ <com.cliff.comparingperformancebar.PercentageProgressBar.
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -20,6 +20,12 @@ Simple Progress View that you can compare things, for instance statistics of Foo
         app:progressRightColor="#45718B"
         app:textSize="18sp" />
 ```
+
+# Next Tasks
+
+ * Animations
+ * Shadows
+ 
 
 
 License
