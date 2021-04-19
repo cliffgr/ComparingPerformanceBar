@@ -12,12 +12,11 @@
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="monospace"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:percentage="30"
+        app:percentage="50"
         app:progressLeftColor="#77B9C1"
         app:progressRightColor="#45718B"
         app:textSize="18sp" />
