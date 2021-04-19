@@ -1,9 +1,9 @@
 # ComparingPerformanceBar
 Simple Progress View that you can compare things, like statistics of a Football match
 
-# Usage
 <img src="https://github.com/cliffgr/ComparingPerformanceBar/blob/master/art/Image1.png"/>
 
+# Usage
 
 ```xml
  <com.cliff.comparingperformancebar.PercentageProgressBar
