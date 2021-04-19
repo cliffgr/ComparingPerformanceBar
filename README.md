@@ -1,5 +1,5 @@
 # ComparingPerformanceBar
-Simple Progress View that you can compare things, for instance Football teams etc
+Simple Progress View that you can compare things, for instance statistics of Football teams in a match etc
 
 # Usage
 <img src="https://github.com/cliffgr/ComparingPerformanceBar/blob/master/art/Image1.png"/>
