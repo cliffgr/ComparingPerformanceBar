@@ -24,7 +24,8 @@ Simple Progress View that you can compare things, like statistics of a Football 
 You can set the value programmatically by calling the following method
 
 ```java
-progressBar.setProgress(30.0f)
+ val progressBar: PercentageProgressBar = findViewById(R.id.percentageProgressBar)
+ progressBar.setProgress(30.0f)
 ```
 
 # Next Tasks
