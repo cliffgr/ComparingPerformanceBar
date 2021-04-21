@@ -1,3 +1,5 @@
+[![Version](https://img.shields.io/badge/Version-1.0.0-<COLOR>.svg)](https://shields.io/)
+
 # ComparingPerformanceBar
 Simple Progress View that you can compare things, like statistics of a Football match
 
