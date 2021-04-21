@@ -3,6 +3,15 @@ Simple Progress View that you can compare things, like statistics of a Football 
 
 <img src="https://github.com/cliffgr/ComparingPerformanceBar/blob/master/art/Image1.png"/>
 
+# Dependency
+
+Add the following to your app module build.gradle file
+```gradle
+dependencies {
+   implementation 'io.github.cliffgr:cpbar:<latest-version-number-here>'
+}
+```
+
 # Usage
 
 ```xml
