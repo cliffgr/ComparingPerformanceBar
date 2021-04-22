@@ -40,7 +40,7 @@ class PercentageProgressBar @JvmOverloads constructor(
     private fun initAttributes() {
         typedArray?.apply {
             currentProgressValue =
-                abs(getInt(R.styleable.PercentageProgressBar_percentage, 40)).coerceIn(0, 100)
+                abs(getInt(R.styleable.PercentageProgressBar_percentage, 50)).coerceIn(0, 100)
                     .toFloat()
             progressRightPaint.color =
                 getColor(R.styleable.PercentageProgressBar_progressRightColor, Color.RED)
