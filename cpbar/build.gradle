@@ -3,6 +3,14 @@ plugins {
     id 'kotlin-android'
 }
 
+ext {
+    PUBLISH_GROUP_ID = 'io.github.cliffgr'
+    PUBLISH_VERSION = "1.0.0"
+    PUBLISH_ARTIFACT_ID = 'cpbar'
+}
+
+apply from: "${rootProject.projectDir}/scripts/publish-mavencentral.gradle"
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -11,7 +19,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName PUBLISH_VERSION
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -29,6 +37,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    libraryVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${PUBLISH_ARTIFACT_ID}-${defaultConfig.versionName}-${variant.name}.aar"
+        }
     }
 }
 

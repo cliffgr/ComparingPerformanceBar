@@ -10,7 +10,7 @@ import androidx.annotation.FloatRange
 import androidx.core.content.res.ResourcesCompat
 import java.lang.Math.abs
 
-class PercentageProgressBar @JvmOverloads constructor(
+class ValueProgressBar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -21,7 +21,8 @@ class PercentageProgressBar @JvmOverloads constructor(
     private var percentageTextPaint = TextPaint()
 
     private lateinit var containerRectF: RectF
-    private var currentProgressValue: Float = 0.0f
+    private var currentLeftValue: Float = 0.0f
+    private var currentRightValue: Float = 0.0f
     private var progressPadding = 5.0f
     private var spaceAtCenter = 0.0f
 
@@ -30,7 +31,7 @@ class PercentageProgressBar @JvmOverloads constructor(
     init {
         typedArray = context.theme.obtainStyledAttributes(
             attrs,
-            R.styleable.PercentageProgressBar,
+            R.styleable.ValueProgressBar,
             0,
             0
         )
@@ -39,37 +40,48 @@ class PercentageProgressBar @JvmOverloads constructor(
 
     private fun initAttributes() {
         typedArray?.apply {
-            currentProgressValue =
-                abs(getInt(R.styleable.PercentageProgressBar_percentage, 50)).coerceIn(0, 100)
+            currentLeftValue =
+                abs(getInt(R.styleable.ValueProgressBar_vpb_valueLeft, 50))
+                    .toFloat()
+            currentRightValue =
+                abs(getInt(R.styleable.ValueProgressBar_vpb_valueRight, 50))
                     .toFloat()
             progressRightPaint.color =
-                getColor(R.styleable.PercentageProgressBar_progressRightColor, Color.RED)
+                getColor(R.styleable.ValueProgressBar_vpb_progressRightColor, Color.RED)
             progressLeftPaint.color =
-                getColor(R.styleable.PercentageProgressBar_progressLeftColor, Color.BLACK)
+                getColor(R.styleable.ValueProgressBar_vpb_progressLeftColor, Color.BLACK)
 
             percentageTextPaint.color = getColor(
-                R.styleable.PercentageProgressBar_textColor,
+                R.styleable.ValueProgressBar_vpb_textColor,
                 Color.WHITE
             )
 
-            percentageTextPaint.textSize = resources.getDimension(R.dimen.default_text_size)
-            percentageTextPaint.textSize =
-                getDimensionPixelSize(R.styleable.PercentageProgressBar_textSize, 32).toFloat()
 
-            val fontId = getResourceId(R.styleable.PercentageProgressBar_android_fontFamily, 0)
+            percentageTextPaint.textSize =
+                getDimensionPixelSize(R.styleable.ValueProgressBar_vpb_textSize, 32).toFloat()
+
+            val fontId = getResourceId(R.styleable.ValueProgressBar_android_fontFamily, 0)
             if (fontId != 0) {
                 percentageTextPaint.typeface = ResourcesCompat.getFont(context, fontId)
             } else {
                 percentageTextPaint.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD);
             }
-
-
             recycle()
         }
     }
 
-    fun setProgress(@FloatRange(from = 0.0, to = 100.0) progressValue: Float = 10f) {
-        currentProgressValue = progressValue
+    fun setLeftValue(progressValue: Float = 10f) {
+        currentLeftValue = progressValue
+    }
+
+    fun setRightValue(progressValue: Float = 10f) {
+        currentLeftValue = progressValue
+    }
+
+    fun setValues(progressLeftValue: Float = 10f, progressRightValue: Float = 10f) {
+        currentLeftValue = progressLeftValue
+        currentRightValue = progressRightValue
+        invalidate()
     }
 
 
@@ -85,34 +97,39 @@ class PercentageProgressBar @JvmOverloads constructor(
         drawProgressBar(canvas)
 
 
-        val textSizeWidth =
-            percentageTextPaint.measureText("%s%%".format(currentProgressValue.toInt()))
+        val textLeftSizeWidth =
+            percentageTextPaint.measureText("%d".format(currentLeftValue.toInt()))
+
+        val textRightSizeWidth =
+            percentageTextPaint.measureText("%d".format(currentRightValue.toInt()))
 
         canvas?.drawText(
-            "%s%%".format(currentProgressValue.toInt()),
-            containerRectF.left + textSizeWidth / 2,
+            "%d".format(currentLeftValue.toInt()),
+            containerRectF.left + textLeftSizeWidth / 2,
             containerRectF.centerY() + percentageTextPaint.textSize / 2,
             percentageTextPaint
         )
 
         canvas?.drawText(
-            "%s%%".format(100 - currentProgressValue.toInt()),
-            containerRectF.right - textSizeWidth - (textSizeWidth / 2),
+            "%d".format(currentRightValue.toInt()),
+            containerRectF.right - textRightSizeWidth - (textRightSizeWidth / 2),
             containerRectF.centerY() + percentageTextPaint.textSize / 2,
             percentageTextPaint
         )
     }
 
     private fun drawProgressBar(canvas: Canvas?) {
+        val total = currentLeftValue + currentRightValue
+
         val pathLeft = drawLeftProgress(
             containerRectF,
-            ((currentProgressValue / 100.0f) * containerRectF.right),
+            (((currentLeftValue / total) * containerRectF.right)),
             progressPadding, spaceAtCenter
         )
 
         val pathRight = drawRightProgress(
             containerRectF,
-            ((currentProgressValue / 100.0f) * containerRectF.right),
+            ((currentRightValue / total) * containerRectF.right),
             progressPadding, spaceAtCenter
         )
         canvas?.drawPath(pathLeft, progressLeftPaint)
@@ -154,11 +171,11 @@ class PercentageProgressBar @JvmOverloads constructor(
             path.moveTo(right - padding, padding)
             path.lineTo(right - padding, bottom - padding)
             path.lineTo(
-                left + width + (right * 0.05f) + spaceInTheMiddle,
+                right - width + (right * 0.05f) + spaceInTheMiddle,
                 bottom - padding
             )
             path.lineTo(
-                left + width - (right * 0.05f) + spaceInTheMiddle,
+                right - width - (right * 0.05f) + spaceInTheMiddle,
                 padding
             )
         }

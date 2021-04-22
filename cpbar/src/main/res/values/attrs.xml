@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PercentageProgressBar">
+        <attr name="percentage" format="integer" />
+        <attr name="progressLeftColor" format="color" />
+        <attr name="progressRightColor" format="color" />
+        <attr name="progressBackgroundColor" format="color" />
+        <attr name="textColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="android:fontFamily" />
+    </declare-styleable>
+
+    <declare-styleable name="ValueProgressBar">
+        <attr name="vpb_valueLeft" format="integer" />
+        <attr name="vpb_valueRight" format="integer" />
+        <attr name="vpb_progressLeftColor" format="color" />
+        <attr name="vpb_progressRightColor" format="color" />
+        <attr name="vpb_progressBackgroundColor" format="color" />
+        <attr name="vpb_textColor" format="color"/>
+        <attr name="vpb_textSize" format="dimension"/>
+        <attr name="android:fontFamily" />
+    </declare-styleable>
+</resources>
