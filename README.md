@@ -1,4 +1,5 @@
 [![Version](https://img.shields.io/badge/Version-1.0.0-<COLOR>.svg)](https://shields.io/)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Comparing%20Performance%20Bar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/8242)
 
 # ComparingPerformanceBar
 Simple Progress View that you can compare things, like statistics of a Football match
