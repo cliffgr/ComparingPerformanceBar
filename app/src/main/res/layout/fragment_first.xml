@@ -21,7 +21,7 @@
         app:progressLeftColor="#77B9C1"
         app:progressRightColor="#45718B"
         app:textSize="18sp" />
-
+it
     <com.cliff.comparingperformancebar.ValueProgressBar
         android:id="@+id/valuesProgressBar"
         android:layout_width="match_parent"
@@ -35,8 +35,8 @@
         app:vpb_progressLeftColor="#77B9C1"
         app:vpb_progressRightColor="#45718B"
         app:vpb_textSize="18sp"
-        app:vpb_valueLeft="240"
-        app:vpb_valueRight="80" />
+        app:vpb_valueLeft="6"
+        app:vpb_valueRight="10" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

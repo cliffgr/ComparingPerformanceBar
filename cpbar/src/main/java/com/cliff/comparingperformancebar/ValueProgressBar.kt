@@ -26,6 +26,9 @@ class ValueProgressBar @JvmOverloads constructor(
     private var progressPadding = 5.0f
     private var spaceAtCenter = 0.0f
 
+    private var textLeftSizeWidth: Float = 0.0f
+    private var textRightSizeWidth: Float = 0.0f
+
     private var typedArray: TypedArray? = null
 
     init {
@@ -41,11 +44,17 @@ class ValueProgressBar @JvmOverloads constructor(
     private fun initAttributes() {
         typedArray?.apply {
             currentLeftValue =
-                abs(getInt(R.styleable.ValueProgressBar_vpb_valueLeft, 50))
+                kotlin.math.abs(getInt(R.styleable.ValueProgressBar_vpb_valueLeft, 50))
                     .toFloat()
             currentRightValue =
-                abs(getInt(R.styleable.ValueProgressBar_vpb_valueRight, 50))
+                kotlin.math.abs(getInt(R.styleable.ValueProgressBar_vpb_valueRight, 50))
                     .toFloat()
+
+            textLeftSizeWidth =
+                percentageTextPaint.measureText("%d".format(currentLeftValue.toInt()))
+            textRightSizeWidth =
+                percentageTextPaint.measureText("%d".format(currentRightValue.toInt()))
+
             progressRightPaint.color =
                 getColor(R.styleable.ValueProgressBar_vpb_progressRightColor, Color.RED)
             progressLeftPaint.color =
@@ -55,7 +64,6 @@ class ValueProgressBar @JvmOverloads constructor(
                 R.styleable.ValueProgressBar_vpb_textColor,
                 Color.WHITE
             )
-
 
             percentageTextPaint.textSize =
                 getDimensionPixelSize(R.styleable.ValueProgressBar_vpb_textSize, 32).toFloat()
@@ -70,17 +78,11 @@ class ValueProgressBar @JvmOverloads constructor(
         }
     }
 
-    fun setLeftValue(progressValue: Float = 10f) {
-        currentLeftValue = progressValue
-    }
-
-    fun setRightValue(progressValue: Float = 10f) {
-        currentLeftValue = progressValue
-    }
-
     fun setValues(progressLeftValue: Float = 10f, progressRightValue: Float = 10f) {
         currentLeftValue = progressLeftValue
         currentRightValue = progressRightValue
+        textLeftSizeWidth = percentageTextPaint.measureText("%d".format(currentLeftValue.toInt()))
+        textRightSizeWidth = percentageTextPaint.measureText("%d".format(currentRightValue.toInt()))
         invalidate()
     }
 
@@ -95,45 +97,48 @@ class ValueProgressBar @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         drawProgressBar(canvas)
-
-
-        val textLeftSizeWidth =
-            percentageTextPaint.measureText("%d".format(currentLeftValue.toInt()))
-
-        val textRightSizeWidth =
-            percentageTextPaint.measureText("%d".format(currentRightValue.toInt()))
-
         canvas?.drawText(
             "%d".format(currentLeftValue.toInt()),
-            containerRectF.left + textLeftSizeWidth / 2,
+            containerRectF.left + (textLeftSizeWidth / 2) + textLeftSizeWidth,
             containerRectF.centerY() + percentageTextPaint.textSize / 2,
             percentageTextPaint
         )
-
         canvas?.drawText(
             "%d".format(currentRightValue.toInt()),
-            containerRectF.right - textRightSizeWidth - (textRightSizeWidth / 2),
+            containerRectF.right - textRightSizeWidth * 2 - (textRightSizeWidth * 2),
             containerRectF.centerY() + percentageTextPaint.textSize / 2,
             percentageTextPaint
         )
     }
 
     private fun drawProgressBar(canvas: Canvas?) {
-        val total = currentLeftValue + currentRightValue
+        var total = currentLeftValue + currentRightValue
+        var tempLeftValue = currentLeftValue
+        var tempRightValue = currentRightValue
 
-        val pathLeft = drawLeftProgress(
-            containerRectF,
-            (((currentLeftValue / total) * containerRectF.right)),
-            progressPadding, spaceAtCenter
-        )
+        if (currentRightValue == 0f && currentLeftValue == 0f) {
+            total = 2f
+            tempRightValue = 1f
+            tempLeftValue = 1f
+        }
 
-        val pathRight = drawRightProgress(
-            containerRectF,
-            ((currentRightValue / total) * containerRectF.right),
-            progressPadding, spaceAtCenter
-        )
-        canvas?.drawPath(pathLeft, progressLeftPaint)
-        canvas?.drawPath(pathRight, progressRightPaint)
+        if (tempLeftValue != 0f) {
+            val pathLeft = drawLeftProgress(
+                containerRectF,
+                (((tempLeftValue / total) * containerRectF.right)),
+                progressPadding, spaceAtCenter
+            )
+            canvas?.drawPath(pathLeft, progressLeftPaint)
+        }
+
+        if (tempRightValue != 0f) {
+            val pathRight = drawRightProgress(
+                containerRectF,
+                ((tempRightValue / total) * containerRectF.right),
+                progressPadding, spaceAtCenter
+            )
+            canvas?.drawPath(pathRight, progressRightPaint)
+        }
     }
 
 
