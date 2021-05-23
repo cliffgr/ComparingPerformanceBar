@@ -40,22 +40,22 @@ class PercentageProgressBar @JvmOverloads constructor(
     private fun initAttributes() {
         typedArray?.apply {
             currentProgressValue =
-                kotlin.math.abs(getInt(R.styleable.PercentageProgressBar_percentage, 50))
+                kotlin.math.abs(getInt(R.styleable.PercentageProgressBar_ppb_percentage, 50))
                     .coerceIn(0, 100)
                     .toFloat()
             progressRightPaint.color =
-                getColor(R.styleable.PercentageProgressBar_progressRightColor, Color.RED)
+                getColor(R.styleable.PercentageProgressBar_ppb_progressRightColor, Color.RED)
             progressLeftPaint.color =
-                getColor(R.styleable.PercentageProgressBar_progressLeftColor, Color.BLACK)
+                getColor(R.styleable.PercentageProgressBar_ppb_progressLeftColor, Color.BLACK)
 
             percentageTextPaint.color = getColor(
-                R.styleable.PercentageProgressBar_textColor,
+                R.styleable.PercentageProgressBar_ppb_textColor,
                 Color.WHITE
             )
 
             // percentageTextPaint.textSize = resources.getDimension(R.dimen.default_text_size)
             percentageTextPaint.textSize =
-                getDimensionPixelSize(R.styleable.PercentageProgressBar_textSize, 32).toFloat()
+                getDimensionPixelSize(R.styleable.PercentageProgressBar_ppb_textSize, 32).toFloat()
 
             val fontId = getResourceId(R.styleable.PercentageProgressBar_android_fontFamily, 0)
             if (fontId != 0) {
