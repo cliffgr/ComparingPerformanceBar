@@ -4,7 +4,8 @@
 # ComparingPerformanceBar
 Simple Progress View that you can compare things, like statistics of a Football match
 
-<img src="https://github.com/cliffgr/ComparingPerformanceBar/blob/master/art/Image1.png"/>
+![image](https://user-images.githubusercontent.com/4539769/119251900-c134ca80-bbb1-11eb-8f81-ed4276dd8040.png)
+
 
 # Dependency
 
@@ -16,6 +17,8 @@ dependencies {
 ```
 
 # Usage
+
+Percentage
 
 ```xml
  <com.cliff.comparingperformancebar.PercentageProgressBar
@@ -33,12 +36,43 @@ dependencies {
         app:textSize="18sp" />
 ```
 
+
+
 You can set the value programmatically by calling the following method
 
 ```java
  val progressBar: PercentageProgressBar = findViewById(R.id.percentageProgressBar)
  progressBar.setProgress(30.0f)
 ```
+
+Value
+
+```xml
+  <com.cliff.comparingperformancebar.ValueProgressBar
+        android:id="@+id/valuesProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/percentageProgressBar"
+        app:vpb_progressLeftColor="#77B9C1"
+        app:vpb_progressRightColor="#45718B"
+        app:vpb_textSize="18sp"
+        app:vpb_valueLeft="6"
+        app:vpb_valueRight="10" />
+```
+
+
+You can set the value programmatically by calling the following method
+
+```java
+  val valueProgressBar: ValueProgressBar = view.findViewById(R.id.valuesProgressBar)
+  valueProgressBar.setValues(10.0f, 7.0f)
+```
+
 
 # Next Tasks
 
