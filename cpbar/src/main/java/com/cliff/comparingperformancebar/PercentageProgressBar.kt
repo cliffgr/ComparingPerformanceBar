@@ -40,7 +40,8 @@ class PercentageProgressBar @JvmOverloads constructor(
     private fun initAttributes() {
         typedArray?.apply {
             currentProgressValue =
-                abs(getInt(R.styleable.PercentageProgressBar_percentage, 50)).coerceIn(0, 100)
+                kotlin.math.abs(getInt(R.styleable.PercentageProgressBar_percentage, 50))
+                    .coerceIn(0, 100)
                     .toFloat()
             progressRightPaint.color =
                 getColor(R.styleable.PercentageProgressBar_progressRightColor, Color.RED)
@@ -119,8 +120,7 @@ class PercentageProgressBar @JvmOverloads constructor(
         canvas?.drawPath(pathLeft, progressLeftPaint)
         canvas?.drawPath(pathRight, progressRightPaint)
     }
-
-
+    
     private fun drawLeftProgress(
         rectF: RectF,
         width: Float,

@@ -6,9 +6,7 @@ import android.graphics.*
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
-import androidx.annotation.FloatRange
 import androidx.core.content.res.ResourcesCompat
-import java.lang.Math.abs
 
 class ValueProgressBar @JvmOverloads constructor(
     context: Context,
@@ -28,6 +26,7 @@ class ValueProgressBar @JvmOverloads constructor(
 
     private var textLeftSizeWidth: Float = 0.0f
     private var textRightSizeWidth: Float = 0.0f
+    private var textPaddingPercentage: Float = 0.05f
 
     private var typedArray: TypedArray? = null
 
@@ -44,10 +43,10 @@ class ValueProgressBar @JvmOverloads constructor(
     private fun initAttributes() {
         typedArray?.apply {
             currentLeftValue =
-                kotlin.math.abs(getInt(R.styleable.ValueProgressBar_vpb_valueLeft, 50))
+                kotlin.math.abs(getInt(R.styleable.ValueProgressBar_vpb_valueLeft, 235))
                     .toFloat()
             currentRightValue =
-                kotlin.math.abs(getInt(R.styleable.ValueProgressBar_vpb_valueRight, 50))
+                kotlin.math.abs(getInt(R.styleable.ValueProgressBar_vpb_valueRight, 345))
                     .toFloat()
 
             textLeftSizeWidth =
@@ -99,13 +98,13 @@ class ValueProgressBar @JvmOverloads constructor(
         drawProgressBar(canvas)
         canvas?.drawText(
             "%d".format(currentLeftValue.toInt()),
-            containerRectF.left + (textLeftSizeWidth / 2) + textLeftSizeWidth,
+            containerRectF.left + (containerRectF.right * textPaddingPercentage),
             containerRectF.centerY() + percentageTextPaint.textSize / 2,
             percentageTextPaint
         )
         canvas?.drawText(
             "%d".format(currentRightValue.toInt()),
-            containerRectF.right - textRightSizeWidth * 2 - (textRightSizeWidth * 2),
+            containerRectF.right - textRightSizeWidth - (containerRectF.right * textPaddingPercentage),
             containerRectF.centerY() + percentageTextPaint.textSize / 2,
             percentageTextPaint
         )

@@ -5,7 +5,7 @@ plugins {
 
 ext {
     PUBLISH_GROUP_ID = 'io.github.cliffgr'
-    PUBLISH_VERSION = "1.1.0"
+    PUBLISH_VERSION = "1.1.2"
     PUBLISH_ARTIFACT_ID = 'cpbar'
 }
 
@@ -18,7 +18,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
+        versionCode 2
         versionName PUBLISH_VERSION
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
