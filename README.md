@@ -22,6 +22,7 @@ Percentage
 
 ```xml
  <com.cliff.comparingperformancebar.PercentageProgressBar
+        android:id="@+id/percentageProgressBar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -30,10 +31,10 @@ Percentage
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:percentage="50"
-        app:progressLeftColor="#77B9C1"
-        app:progressRightColor="#45718B"
-        app:textSize="18sp" />
+        app:ppb_percentage="50"
+        app:ppb_progressLeftColor="#77B9C1"
+        app:ppb_progressRightColor="#45718B"
+        app:ppb_textSize="18sp" />
 ```
 
 
