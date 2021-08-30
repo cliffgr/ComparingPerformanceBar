@@ -4,7 +4,7 @@
 # ComparingPerformanceBar
 Simple Progress View that you can compare things, like statistics of a Football match
 
-![image](https://user-images.githubusercontent.com/4539769/119251900-c134ca80-bbb1-11eb-8f81-ed4276dd8040.png)
+![image](art/preview.jpg)
 
 
 # Dependency
