@@ -7,6 +7,7 @@ import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import kotlin.math.max
 
 class ValueProgressBar @JvmOverloads constructor(
     context: Context,
@@ -19,13 +20,12 @@ class ValueProgressBar @JvmOverloads constructor(
     private var percentageTextPaint = TextPaint()
 
     private lateinit var containerRectF: RectF
+    private var isPercent: Boolean = false
     private var currentLeftValue: Float = 0.0f
     private var currentRightValue: Float = 0.0f
     private var progressPadding = 5.0f
     private var spaceAtCenter = 0.0f
 
-    private var textLeftSizeWidth: Float = 0.0f
-    private var textRightSizeWidth: Float = 0.0f
     private var textPaddingPercentage: Float = 0.05f
 
     private var typedArray: TypedArray? = null
@@ -42,17 +42,13 @@ class ValueProgressBar @JvmOverloads constructor(
 
     private fun initAttributes() {
         typedArray?.apply {
+            isPercent = getBoolean(R.styleable.ValueProgressBar_vpb_percent, false)
             currentLeftValue =
                 kotlin.math.abs(getInt(R.styleable.ValueProgressBar_vpb_valueLeft, 235))
                     .toFloat()
             currentRightValue =
                 kotlin.math.abs(getInt(R.styleable.ValueProgressBar_vpb_valueRight, 345))
                     .toFloat()
-
-            textLeftSizeWidth =
-                percentageTextPaint.measureText("%d".format(currentLeftValue.toInt()))
-            textRightSizeWidth =
-                percentageTextPaint.measureText("%d".format(currentRightValue.toInt()))
 
             progressRightPaint.color =
                 getColor(R.styleable.ValueProgressBar_vpb_progressRightColor, Color.RED)
@@ -80,8 +76,6 @@ class ValueProgressBar @JvmOverloads constructor(
     fun setValues(progressLeftValue: Float = 10f, progressRightValue: Float = 10f) {
         currentLeftValue = progressLeftValue
         currentRightValue = progressRightValue
-        textLeftSizeWidth = percentageTextPaint.measureText("%d".format(currentLeftValue.toInt()))
-        textRightSizeWidth = percentageTextPaint.measureText("%d".format(currentRightValue.toInt()))
         invalidate()
     }
 
@@ -96,16 +90,42 @@ class ValueProgressBar @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         drawProgressBar(canvas)
+
+        // Add percent if isPercent == true
+        lateinit var leftValue: String
+        lateinit var rightValue: String
+
+        if (isPercent) {
+            leftValue = "%s%%".format(currentLeftValue.toInt())
+            rightValue = "%s%%".format(currentRightValue.toInt())
+
+        } else {
+            leftValue = "%d".format(currentLeftValue.toInt())
+            rightValue = "%d".format(currentRightValue.toInt())
+        }
+
+        // Calculate width
+        val textLeftSizeWidth = percentageTextPaint.measureText(leftValue)
+        val textRightSizeWidth = percentageTextPaint.measureText(rightValue)
+        val textSizeWidth = max(textLeftSizeWidth, textRightSizeWidth)
+
+        // Calculate padding
+        val leftPaddingX = containerRectF.left + textSizeWidth / 2
+        val rightPaddingX = containerRectF.right - textSizeWidth - (textSizeWidth / 4.5f)
+        val allPaddingY = containerRectF.centerY() + (percentageTextPaint.textSize / 2)
+
+
         canvas?.drawText(
-            "%d".format(currentLeftValue.toInt()),
-            containerRectF.left + (containerRectF.right * textPaddingPercentage),
-            containerRectF.centerY() + percentageTextPaint.textSize / 2,
+            leftValue,
+            leftPaddingX,
+            allPaddingY,
             percentageTextPaint
         )
+
         canvas?.drawText(
-            "%d".format(currentRightValue.toInt()),
-            containerRectF.right - textRightSizeWidth - (containerRectF.right * textPaddingPercentage),
-            containerRectF.centerY() + percentageTextPaint.textSize / 2,
+            rightValue,
+            rightPaddingX,
+            allPaddingY,
             percentageTextPaint
         )
     }

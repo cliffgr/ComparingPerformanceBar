@@ -11,6 +11,7 @@
     </declare-styleable>
 
     <declare-styleable name="ValueProgressBar">
+        <attr name="vpb_percent" format="boolean" />
         <attr name="vpb_valueLeft" format="integer" />
         <attr name="vpb_valueRight" format="integer" />
         <attr name="vpb_progressLeftColor" format="color" />

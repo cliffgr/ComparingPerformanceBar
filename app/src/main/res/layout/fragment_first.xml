@@ -34,9 +34,25 @@
         app:layout_constraintTop_toBottomOf="@+id/percentageProgressBar"
         app:vpb_progressLeftColor="#77B9C1"
         app:vpb_progressRightColor="#45718B"
+        app:vpb_percent="false"
         app:vpb_textSize="18sp"
         app:vpb_valueLeft="6"
         app:vpb_valueRight="10" />
 
-
+    <com.cliff.comparingperformancebar.ValueProgressBar
+        android:id="@+id/valuesProgressBarPercent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/valuesProgressBar"
+        app:vpb_progressLeftColor="#77B9C1"
+        app:vpb_progressRightColor="#45718B"
+        app:vpb_percent="true"
+        app:vpb_textSize="18sp"
+        app:vpb_valueLeft="6"
+        app:vpb_valueRight="10" />
 </androidx.constraintlayout.widget.ConstraintLayout>
