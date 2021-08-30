@@ -41,7 +41,7 @@ Percentage
 
 You can set the value programmatically by calling the following method
 
-```java
+```kotlin
  val progressBar: PercentageProgressBar = findViewById(R.id.percentageProgressBar)
  progressBar.setProgress(30.0f)
 ```
@@ -61,19 +61,28 @@ Value
         app:layout_constraintTop_toBottomOf="@+id/percentageProgressBar"
         app:vpb_progressLeftColor="#77B9C1"
         app:vpb_progressRightColor="#45718B"
+        app:vpb_percent="false"
         app:vpb_textSize="18sp"
         app:vpb_valueLeft="6"
         app:vpb_valueRight="10" />
 ```
 
-
 You can set the value programmatically by calling the following method
 
-```java
+```kotlin
   val valueProgressBar: ValueProgressBar = view.findViewById(R.id.valuesProgressBar)
   valueProgressBar.setValues(10.0f, 7.0f)
 ```
 
+Value Percent
+
+```text
+  <!-- just set this attribute to true -->
+  <com.cliff.comparingperformancebar.ValueProgressBar
+        ...
+        app:vpb_percent="true"
+        ... />
+```
 
 # Next Tasks
 
