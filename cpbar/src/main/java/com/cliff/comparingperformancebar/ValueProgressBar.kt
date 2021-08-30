@@ -95,13 +95,15 @@ class ValueProgressBar @JvmOverloads constructor(
         lateinit var leftValue: String
         lateinit var rightValue: String
 
-        if (isPercent) {
-            leftValue = "%s%%".format(currentLeftValue.toInt())
-            rightValue = "%s%%".format(currentRightValue.toInt())
-
-        } else {
-            leftValue = "%d".format(currentLeftValue.toInt())
-            rightValue = "%d".format(currentRightValue.toInt())
+        when (isPercent) {
+            true -> {
+                leftValue = "%s%%".format(currentLeftValue.toInt())
+                rightValue = "%s%%".format(currentRightValue.toInt())
+            }
+            false -> {
+                leftValue = "%d".format(currentLeftValue.toInt())
+                rightValue = "%d".format(currentRightValue.toInt())
+            }
         }
 
         // Calculate width

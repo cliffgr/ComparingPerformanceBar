@@ -31,7 +31,7 @@ class FirstFragment : Fragment() {
         progressBar.setProgress(30.0f)
 
         val valueProgressBar: ValueProgressBar = view.findViewById(R.id.valuesProgressBar)
-        valueProgressBar.setValues(10.0f, 7.0f)
+        valueProgressBar.setValues(100.0f, 20.0f)
 
         val valueProgressBarPercent: ValueProgressBar = view.findViewById(R.id.valuesProgressBarPercent)
         valueProgressBarPercent.setValues(10.0f, 7.0f)
