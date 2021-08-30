@@ -76,7 +76,7 @@ You can set the value programmatically by calling the following method
 
 Value Percent
 
-```text
+```xml
   <!-- just set this attribute to true -->
   <com.cliff.comparingperformancebar.ValueProgressBar
         ...
